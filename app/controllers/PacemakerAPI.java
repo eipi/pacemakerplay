@@ -17,20 +17,20 @@ public class PacemakerAPI extends Controller
     public static Result  users()
     {
         List<User> users = User.findAll();
-        return ok(renderUser(users));
+        return ok(renderEntity(users));
     }
 
     public static Result user(Long id)
     {
         User user = User.findById(id);
-        return user==null? notFound() : ok(renderUser(user));
+        return user==null? notFound() : ok(renderEntity(user));
     }
 
     public static Result createUser()
     {
-        User user = renderUser(request().body().asJson().toString());
+        User user = buildUser(request().body().asJson().toString());
         user.save();
-        return ok(renderUser(user));
+        return ok(renderEntity(user));
     }
 
     public static Result deleteUser(Long id)
@@ -57,10 +57,10 @@ public class PacemakerAPI extends Controller
         User user = User.findById(id);
         if (user != null)
         {
-            User updatedUser = renderUser(request().body().asJson().toString());
+            User updatedUser = buildUser(request().body().asJson().toString());
             user.update(updatedUser);
             user.save();
-            result = ok(renderUser(user));
+            result = ok(renderEntity(user));
         }
         return result;
     }

@@ -11,12 +11,12 @@ public class JsonParser
 {
     private static JSONSerializer  userSerializer     = new JSONSerializer();
 
-    public static User renderUser(String json)
+    public static User buildUser(String json)
     {
         return new JSONDeserializer<User>().deserialize(json, User.class);
     }
 
-    public static String renderUser(Object obj)
+    public static String renderEntity(Object obj)
     {
         return userSerializer.serialize(obj);
     }
